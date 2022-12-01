@@ -4,10 +4,12 @@ import org.assertj.core.api.Assertions.assertThat
 fun main() {
     fun part1(input: List<String>): Int {
         val lines = input
-        val splitAt = lines
+        var splitAt = lines
             .withIndex()
             .filter { it.value == "" }
             .map { it.index }
+        splitAt = listOf(0) + splitAt
+        splitAt = splitAt + listOf(lines.size)
 
 
         val split = splitAt
@@ -58,13 +60,11 @@ fun main() {
     // Test
     val testInput = readInput("Day01_test")
     val output1 = part1(testInput)
-    println(output1)
     assertThat(output1).isEqualTo(24000)
 
     // Answer
     val input = readInput("Day01")
     val outputAnswer1 = part1(input)
-    println(outputAnswer1)
     assertThat(outputAnswer1).isEqualTo(67450)
 
     // Test
@@ -73,6 +73,5 @@ fun main() {
 
     // Answer
     val outputAnswer2 = part2(input)
-    println(outputAnswer2)
     assertThat(outputAnswer2).isEqualTo(199357)
 }
