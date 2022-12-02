@@ -12,26 +12,19 @@ val player = mapOf(
     "Z" to 3,
 )
 
-fun getWinner(opp: Int): Int {
-    if (opp == 1) {
-        return 2
-    }
-    if (opp == 2) {
-        return 3
-    }
-    return 1
+fun getWinner(opp: Int): Int = when(opp) {
+    1 -> 2
+    2 -> 3
+    3 -> 1
+    else -> error("nope")
 }
 
-fun getLoser(opp: Int): Int {
-    if (opp == 1) {
-        return 3
-    }
-    if (opp == 2) {
-        return 1
-    }
-    return 2
+fun getLoser(opp: Int): Int = when(opp) {
+    1 -> 3
+    2 -> 1
+    3 -> 2
+    else -> error("nope")
 }
-
 
 fun main() {
     fun part1(input: List<String>): Int {
@@ -46,7 +39,7 @@ fun main() {
                 played - faced == -2 -> 6 + played
                 played - faced == 2 -> played
                 played - faced == -1 -> played
-                else -> played
+                else -> error("should not happen")
             }
         }
         return points
@@ -61,7 +54,8 @@ fun main() {
             when {
                 strategy == 1 -> getLoser(faced)
                 strategy == 2 -> 3 + faced
-                else -> 6 + getWinner(faced)
+                strategy == 3 -> 6 + getWinner(faced)
+                else -> error("should not happen")
             }
         }
         return points
