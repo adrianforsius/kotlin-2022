@@ -3,22 +3,21 @@ import org.assertj.core.api.Assertions.assertThat
 
 fun main() {
     fun part1(input: List<String>): Int {
-        return input.map  {
-            val lines = it.split("\n")
-            lines.map {
-                val parts = it.split(",")
-                val part1 = parts[0].split("-")
-                val part2 = parts[1].split("-")
-                val range1 = part1[0].toInt().rangeTo(part1[1].toInt())
-                val range2 = part2[0].toInt().rangeTo(part2[1].toInt())
-                val match1 = range1.all{
-                    it in range2
-                }
-                val match2 = range2.all{
-                    it in range1
-                }
-                if (match1 || match2) 1 else 0
-            }.sum()
+        return input.map {
+            it.split("\n")
+        }.map {
+            val parts = it.first().split(",")
+            val part1 = parts[0].split("-")
+            val part2 = parts[1].split("-")
+            val range1 = part1[0].toInt().rangeTo(part1[1].toInt())
+            val range2 = part2[0].toInt().rangeTo(part2[1].toInt())
+            val match1 = range1.all{
+                it in range2
+            }
+            val match2 = range2.all{
+                it in range1
+            }
+            if (match1 || match2) 1 else 0
         }.sum()
     }
 

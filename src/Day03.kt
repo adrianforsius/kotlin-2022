@@ -1,10 +1,9 @@
 import org.assertj.core.api.Assertions.assertThat
 
-fun code(c: Char): Int {
-    if (c.isUpperCase()) {
-        return c.code - 38
-    }
-    return c.code - 96
+fun code(it: Char): Int = when (it) {
+    in 'a'..'z' -> it - 'a' + 1
+    in 'A'..'Z' -> it - 'A' + 27
+    else -> throw error("nope")
 }
 
 
@@ -13,21 +12,20 @@ fun main() {
             it.split("\n")
             listOf(it.substring(0, it.length/2), it.substring(it.length/2, it.length))
         }.map{ that ->
-            that[0].filter{
+            that.first().filter{
                 it in (that[1])
             }
         }.sumOf{
-           code(it.get(0))
+           code(it.first())
         }
 
     fun part2(input: List<String>): Int = input.map {
         it.split("\n")
     }.map{
-        it.first().toList().toSortedSet().toList()
-    }.chunked(3) {
-        val all = it[0] + it[1] + it[2]
-       code(all.groupingBy { it }.eachCount().maxBy { it.value }.key)
-    }.sum()
+        it.first().toSet()
+    }.chunked(3).flatMap{
+        it.reduce { acc, next -> acc.intersect(next) }
+    }.sumOf { code(it) }
 
 
     // test if implementation meets criteria from the description, like:
