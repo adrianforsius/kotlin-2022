@@ -1,6 +1,14 @@
 import org.assertj.core.api.Assertions.assertThat
 
 
+//import java.nio.file.Path
+//import kotlin.io.path.Path
+//import kotlin.io.path.useLines
+//fun part1(path: Path): Int = path.useLines{ lines ->
+//    lines
+//        .count()
+//}
+
 fun main() {
     fun part1(input: List<String>): Int {
         val lines = input
