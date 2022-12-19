@@ -44,26 +44,25 @@ fun ls(curr: Node, files: List<String>) {
     }
 }
 
-data class Pair(var current: Int, var total: Int)
 
 data class PairV2(var current: Int, var fit: Int)
-fun traverse(n: Node, pair: Pair): Pair {
+fun traverse(n: Node, pair: Pair<Int, Int>): Pair<Int, Int> {
     if (n.children.size == 0) {
-        return Pair(n.size, pair.total)
+        return Pair(n.size, pair.second)
     }
 
     var current = 0
     var p = pair
     for (n in n.children) {
         p = traverse(n, p)
-        current += p.current
+        current += p.first
     }
 
-    var out = Pair(current, p.total)
+    var total = p.second
     if (current < 100_000) {
-        out.total += current
+        total += current
     }
-    return out
+    return Pair(current, total)
 }
 
 fun traverseTotal(n: Node, total: Int): Int {
@@ -115,7 +114,7 @@ fun main() {
             }
         }
 
-        return traverse(root, Pair(0,0)).total
+        return traverse(root, Pair(0,0)).second
     }
 
     fun part2(input: String): Int {
